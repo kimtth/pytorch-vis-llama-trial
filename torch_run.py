@@ -291,4 +291,162 @@ print(f'Shape after squeeze dim=2: {y_squeezed.shape}\n')
 #                                    [7, 8, 9]])
 # Shape after squeeze dim=2: torch.Size([3, 3])
 
+# Python program to squeeze the tensor in
+# different dimensions
+
+# 4. squeeze
+# creating the input tensor
+input = torch.randn(3,1,2,1,4)
+print("Dimension of input tensor:", input.dim())
+print("Input tensor Size:\n",input.size())
+ 
+# squeeze the tensor in dimension 0
+output = torch.squeeze(input,dim=0)
+print("Size after squeeze with dim=0:\n",
+      output.size())
+ 
+# squeeze the tensor in dimension 0
+output = torch.squeeze(input,dim=1)
+print("Size after squeeze with dim=1:\n",
+      output.size())
+ 
+# squeeze the tensor in dimension 0
+output = torch.squeeze(input,dim=2)
+print("Size after squeeze with dim=2:\n",
+      output.size())
+ 
+# squeeze the tensor in dimension 0
+output = torch.squeeze(input,dim=3)
+print("Size after squeeze with dim=3:\n",
+      output.size())
+ 
+# squeeze the tensor in dimension 0
+output = torch.squeeze(input,dim=4)
+print("Size after squeeze with dim=4:\n",
+      output.size())
+# output = torch.squeeze(input,dim=5) # Error
+
+'''
+Dimension of input tensor: 5
+Input tensor Size:
+ torch.Size([3, 1, 2, 1, 4])
+Size after squeeze with dim=0:
+ torch.Size([3, 1, 2, 1, 4])
+Size after squeeze with dim=1:
+ torch.Size([3, 2, 1, 4])
+Size after squeeze with dim=2:
+ torch.Size([3, 1, 2, 1, 4])
+Size after squeeze with dim=3:
+ torch.Size([3, 1, 2, 4])
+Size after squeeze with dim=4:
+ torch.Size([3, 1, 2, 1, 4])
+'''
+
+# 5. unsqueeze
+# define the input tensor
+input = torch.arange(8, dtype=torch.float)
+print("Input tensor:\n", input)
+print("Size of input Tensor before unsqueeze:\n",
+      input.size())
+ 
+output = torch.unsqueeze(input, dim=0)
+print("Tensor after unsqueeze with dim=0:\n", output)
+print("Size after unsqueeze with dim=0:\n",
+      output.size())
+ 
+output = torch.unsqueeze(input, dim=1)
+print("Tensor after unsqueeze with dim=1:\n", output)
+print("Size after unsqueeze with dim=1:\n",
+      output.size())
+
+'''
+Input tensor:
+ tensor([0., 1., 2., 3., 4., 5., 6., 7.])
+Size of input Tensor before unsqueeze:
+ torch.Size([8])
+Tensor after unsqueeze with dim=0:
+ tensor([[0., 1., 2., 3., 4., 5., 6., 7.]])
+Size after unsqueeze with dim=0:
+ torch.Size([1, 8])
+Tensor after unsqueeze with dim=1:
+ tensor([[0.],
+        [1.],
+        [2.],
+        [3.],
+        [4.],
+        [5.],
+        [6.],
+        [7.]])
+Size after unsqueeze with dim=1:
+ torch.Size([8, 1])
+'''
+
+# 6. squeeze and unsqueeze -1
+
+'''
+The parameter of unsqueeze and squeeze functions are not a number of dimensions to add/remove, 
+it tells on which place should one dimension be added/removed. 
+The parameter -1 just means in the end, so squeeze(-1) would remove the last dimension and unsqueeze(-1) would add a new dimension after the current last.
+'''
+
+a = torch.randn((4, 4, 1))
+a.shape               # torch.size([4, 4, 1])
+a.squeeze(2).shape    # torch.Size([4, 4]), dimension 2 has been removed
+a.squeeze(-1).shape   # torch.Size([4, 4]), last dimension has been removed (same effect)
+a.unsqueeze(0).shape  # torch.Size([1, 4, 4, 1]), one new dimension as first
+a.unsqueeze(1).shape  # torch.Size([4, 1, 4, 1]), one new dimension as second
+a.unsqueeze(3).shape  # torch.Size([4, 4, 1, 1]), one new dimension as fourth
+a.unsqueeze(-1).shape # torch.Size([4, 4, 1, 1]), one new dimension as last (same effect)
+
+# 5) sum
+# https://towardsdatascience.com/understanding-dimensions-in-pytorch-6edf9972d3be
+ x = torch.tensor([
+     [1, 2, 3],
+     [4, 5, 6]
+   ])
+print(x.shape)
+# torch.Size([2, 3])
+
+torch.sum(x, dim=0)
+tensor([5, 7, 9])
+
+torch.sum(x, dim=1)
+tensor([6, 15])
+
+# The key to grasp how *dim* in PyTorch and *axis* in NumPy work was this paragraph from Aerin’s article:
+# The way to understand the “axis” of numpy sum is that it collapses the specified axis. 
+# So when it collapses the axis 0 (the row), it becomes just one row (it sums column-wise).
+
+y = torch.tensor([
+     [
+       [1, 2, 3],
+       [4, 5, 6]
+     ],
+     [
+       [1, 2, 3],
+       [4, 5, 6]
+     ],
+     [
+       [1, 2, 3],
+       [4, 5, 6]
+     ]
+   ])
+
+y.shape
+
+torch.Size([3, 2, 3])
+
+torch.sum(y, dim=0)
+tensor([[ 3,  6,  9],
+        [12, 15, 18]])
+
+torch.sum(y, dim=1)
+tensor([[5, 7, 9],
+        [5, 7, 9],
+        [5, 7, 9]])
+
+torch.sum(y, dim=2)
+tensor([[ 6, 15],
+        [ 6, 15],
+        [ 6, 15]])
 
