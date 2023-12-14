@@ -1,0 +1,7 @@
+torch
+transformers
+pillow
+tensorboard
+torch-tb-profiler
+sentencepiece
+peft

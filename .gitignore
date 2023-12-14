@@ -177,3 +177,13 @@ pyrightconfig.json
 
 .vscode/
 .idea/
+
+out/
+out.pt
+model/
+dataset/
+tensorboard/
+**/azureml-examples/
+**/pix2code/
+**/Visual-LLama/
+**/train.pkl
